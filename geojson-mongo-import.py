@@ -25,11 +25,13 @@ client = MongoClient('mongodb://localhost:27017/')
 db = client['geospatial']
 collection = db[to_collection]
 
+collection.create_index([("geometry", GEOSPHERE)])
+
 for feature in geojson['features']:
   # Note: comment out the next two lines if your input file does not have a timestamp field in properties
-  timestamp = feature['properties']['timestamp']
-  feature['properties']['timestamp'] = datetime.strptime(timestamp, '%Y-%m-%dT%H:%M:%S.%fZ')
+  # timestamp = feature['properties']['timestamp']
+  # feature['properties']['timestamp'] = datetime.strptime(timestamp, '%Y-%m-%dT%H:%M:%S.%fZ')
   collection.insert_one(feature)
 
-collection.create_index([("geometry", GEOSPHERE)])
+
 
