@@ -15,7 +15,7 @@ Given an input file named "points.geojson" having GeoJSON points and destination
 
 This script uses bulk write operations which results in nearly a 10x performance boost.  This performance improvement is very noticeable with large GeoJSON files.
 
-After importing the GeoJSON file, this script creates a MongoDB [2dsphere](https://docs.mongodb.com/manual/core/2dsphere/) geospatial index on the collection (if the named index does not exist).  It also creates the named database and collection if they do not exist.
+Along with importing the GeoJSON file, this script also creates a MongoDB [2dsphere](https://docs.mongodb.com/manual/core/2dsphere/) geospatial index on the collection (if the named index does not exist).  It also creates the named database and collection if they do not exist.
 
 Script requires MongoDB 3.2 or higher (prior releases do not support bulk operations), and was developed using Python 2.7 and a MongoDB 3.4 server.
 
