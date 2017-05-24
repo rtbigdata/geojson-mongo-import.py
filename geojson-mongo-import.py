@@ -6,9 +6,9 @@
 #
 # example usage:
 # given an input file named "points.geojson" having GeoJSON points
-# and destination collection named "points"
+# into destination DB "geospatial" and collection named "points"
 #
-# python geojson-mongo-import.py -f points.geojson -c points
+# python geojson-mongo-import.py -f points.geojson -d geospatial -c points
 #
 #
 
