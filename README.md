@@ -15,7 +15,7 @@ Given an input file named "points.geojson" having GeoJSON points and destination
 
 Additional parameters are required if your server is not on your local machine or if your database requires authentication.  Use the "--help" flag or see the example below.
 
-`python geojson-mongo-import.py -f points.geojson -s server.example.com -d geospatial -c points -u someuser -p thepassword`
+`python geojson-mongo-import.py -f points.geojson -s host.example.com -d geospatial -c points -u user -p password`
 
 This script uses bulk write operations which results in nearly a 10x performance boost.  This performance improvement is very noticeable with large GeoJSON files.
 
