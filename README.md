@@ -15,6 +15,8 @@ Given an input file named "points.geojson" having GeoJSON points and destination
 
 Additional parameters are required if your server is not on your local machine or if your database requires authentication.  Use the "--help" flag or see the detailed argument list below.
 
+`python geojson-mongo-import.py -f points.geojson -s server.example.com -d geospatial -c points -u someuser -p thepassword`
+
 `optional arguments:`
 `  -h, --help  show this help message and exit`
 `  -f F        input file`
