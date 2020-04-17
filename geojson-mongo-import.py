@@ -62,16 +62,16 @@ for feature in geojson['features']:
 # execute bulk operation to the DB
 try:
   result = bulk.execute()
-  print "Number of Features successully inserted:", result["nInserted"]
+  print("Number of Features successully inserted:", result["nInserted"])
 except BulkWriteError as bwe:
   nInserted = bwe.details["nInserted"]
   errMsg = bwe.details["writeErrors"]
-  print "Errors encountered inserting features"
-  print "Number of Features successully inserted:", nInserted
-  print "The following errors were found:"
+  print("Errors encountered inserting features")
+  print("Number of Features successully inserted:", nInserted)
+  print("The following errors were found:")
   for item in errMsg:
-    print "Index of feature:", item["index"]
-    print "Error code:", item["code"]
-    print "Message (truncated due to data length):", item["errmsg"][0:120], "..."
+    print("Index of feature:", item["index"])
+    print("Error code:", item["code"])
+    print("Message (truncated due to data length):", item["errmsg"][0:120], "...")
 
 
