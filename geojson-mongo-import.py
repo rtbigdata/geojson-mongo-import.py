@@ -40,7 +40,7 @@ else:
   db_password = urllib.quote_plus(args.p)
   uri = 'mongodb://' + db_user + ':' + db_password + '@' + to_server + ':' + to_port +'/' + to_database
 
-with open(inputfile,'r') as f:
+with open(inputfile,'r',encoding='utf-8') as f:
   geojson = json.loads(f.read())
 
 client = MongoClient(uri)
