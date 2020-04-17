@@ -37,7 +37,7 @@ db_user = args.u
 if db_user is None:
   uri = 'mongodb://' + to_server + ':' + to_port +'/'
 else:
-  db_password = urllib.quote_plus(args.p)
+  db_password = urllib.parse.quote_plus(args.p)
   uri = 'mongodb://' + db_user + ':' + db_password + '@' + to_server + ':' + to_port +'/' + to_database
 
 with open(inputfile,'r') as f:
