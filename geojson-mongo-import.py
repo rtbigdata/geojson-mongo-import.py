@@ -13,8 +13,7 @@
 #
 
 import argparse, urllib, json
-from datetime import datetime
-from pymongo import MongoClient, GEOSPHERE
+from pymongo import MongoClient, GEOSPHERE, InsertOne
 from pymongo.errors import (PyMongoError, BulkWriteError)
 
 parser = argparse.ArgumentParser(description='Bulk import GeoJSON file into MongoDB')
@@ -49,29 +48,25 @@ collection = db[to_collection]
 
 # create 2dsphere index and initialize unordered bulk insert
 collection.create_index([("geometry", GEOSPHERE)])
-bulk = collection.initialize_unordered_bulk_op()
 
+bulkArr = []
 for feature in geojson['features']:
-  # Note: comment out next two lines if input file does not contain timestamp field having proper format
-  # timestamp = feature['properties']['timestamp']
-  # feature['properties']['timestamp'] = datetime.strptime(timestamp, '%Y-%m-%dT%H:%M:%S.%fZ')
+  bulkArr.append( InsertOne(feature) )
 
-  # append to bulk insert list
-  bulk.insert(feature)
 
 # execute bulk operation to the DB
 try:
-  result = bulk.execute()
-  print "Number of Features successully inserted:", result["nInserted"]
+  result = collection.bulk_write(bulkArr)
+  print("Number of Features successully inserted:", result.inserted_count)
 except BulkWriteError as bwe:
   nInserted = bwe.details["nInserted"]
   errMsg = bwe.details["writeErrors"]
-  print "Errors encountered inserting features"
-  print "Number of Features successully inserted:", nInserted
-  print "The following errors were found:"
+  print("Errors encountered inserting features")
+  print("Number of Features successully inserted:", nInserted)
+  print("The following errors were found:")
   for item in errMsg:
-    print "Index of feature:", item["index"]
-    print "Error code:", item["code"]
-    print "Message (truncated due to data length):", item["errmsg"][0:120], "..."
+    print("Index of feature:", item["index"])
+    print("Error code:", item["code"])
+    print("Message (truncated due to data length):", item["errmsg"][0:120], "...")
 
 
