@@ -13,6 +13,7 @@
 #
 
 import argparse, urllib, json
+from datetime import datetime
 from pymongo import MongoClient, GEOSPHERE, InsertOne
 from pymongo.errors import (PyMongoError, BulkWriteError)
 
@@ -51,8 +52,10 @@ collection.create_index([("geometry", GEOSPHERE)])
 
 bulkArr = []
 for feature in geojson['features']:
+  # Note: comment out next two lines if input file does not contain timestamp field having proper format
+  # timestamp = feature['properties']['timestamp']
+  # feature['properties']['timestamp'] = datetime.strptime(timestamp, '%Y-%m-%dT%H:%M:%S.%fZ')
   bulkArr.append( InsertOne(feature) )
-
 
 # execute bulk operation to the DB
 try:
